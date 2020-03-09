@@ -9,6 +9,8 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
+#include <math.h>
+
 #include <iostream>
 
 #include "Shader.h"
@@ -49,37 +51,36 @@ void inicializarTriangulo() {
 	triangulo.push_back(v3);
 }
 
-
 void dibujar() {
 
 }
 
-int main() {
-	// Declarar una ventana
+int main()
+{
+	//Declarar una ventana
 	GLFWwindow* window;
 
-	// Si no se pudo iniciar GLFW
-	// Terminamos ejecución
+	//Si no se pudo iniciar GLFW
+	//Terminamos ejecucion
 	if (!glfwInit()) {
 		exit(EXIT_FAILURE);
 	}
-
-	// Si se pudo iniciar GLFW
-	// Inicializamos la ventana
-	//window = glfwCreateWindow(1500, 600, "Ventana", NULL, NULL);
-	window = glfwCreateWindow(600, 600, "Ventana", NULL, NULL);
-
-	// Si no se pudo crear la ventana
-	// Terminamos la ejecución
+	//Si se pudo iniciar GLFW
+	//inicializamos la ventana
+	window =
+		glfwCreateWindow(600, 600, "Ventana",
+			NULL, NULL);
+	//Si no se pudo crear la venata
+	//Terminamos ejecucion
 	if (!window) {
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
-
-	// Establecemos la ventana como contexto
+	//Establecemos la ventana como contexto
 	glfwMakeContextCurrent(window);
 
-	// Una vez establecido el contexto se activan las funciones "modernas" (gpu)
+	//Una vez establecido el contexto
+	//Se activan las funciones "modernas" (gpu)
 	glewExperimental = true;
 
 	GLenum errores = glewInit();
@@ -87,60 +88,66 @@ int main() {
 		glewGetErrorString(errores);
 	}
 
-	const GLubyte *versionGL = glGetString(GL_VERSION);
+	const GLubyte* versionGL =
+		glGetString(GL_VERSION);
 	cout << "Version OpenGL: " << versionGL;
 
 	inicializarTriangulo();
 
-	const char* rutaVertexShader = "VertexShader.shader";
-	const char* rutaFragmentShader = "FragmentShader.shader";
+	const char* rutaVertexShader =
+		"VertexShader.shader";
+	const char* rutaFragmentShader =
+		"FragmentShader.shader";
 	shader = new Shader(rutaVertexShader, rutaFragmentShader);
 
-	// Mapeo de atributos
-	posicionID = glGetAttribLocation(shader->getID, "posicion");
-	colorID = glGetAttribLocation(shader->getID, "color");
+	//Mapeo de atributos
+	posicionID =
+		glGetAttribLocation(shader->getID(), "posicion");
+	colorID =
+		glGetAttribLocation(shader->getID(), "color");
 
 	shader->desenlazar();
 
-	// Crear el vertex array del triángulo
+	//Crear el vertex array del triangulo
 	glGenVertexArrays(1, &vertexArrayTrianguloID);
 	glBindVertexArray(vertexArrayTrianguloID);
-
-	// Vertex buffer
+	//Vertex buffer
 	glGenBuffers(1, &bufferTrianguloID);
 	glBindBuffer(GL_ARRAY_BUFFER, bufferTrianguloID);
-
-	// Asociar datos al buffer
-	glBufferData(
-		GL_ARRAY_BUFFER, sizeof(Vertice) * triangulo.size(),
-		triangulo.data(), GL_STATIC_DRAW
-	);
-
-	// Habilitar atributos del shader
+	//Asociar datos al buffer
+	glBufferData(GL_ARRAY_BUFFER,
+		sizeof(Vertice) * triangulo.size(),
+		triangulo.data(), GL_STATIC_DRAW);
+	//Habilitar atributos de shader
 	glEnableVertexAttribArray(posicionID);
 	glEnableVertexAttribArray(colorID);
+	//Especificar a OpenGL como comunicarse
+	glVertexAttribPointer(posicionID,
+		3, GL_FLOAT, GL_FALSE,
+		sizeof(Vertice), 0);
 
-	// Especificar a OpenGL como comunicarse
-	glVertexAttribPointer(posicionID, 3, GL_FLOAT, GL_FALSE, sizeof(Vertice), 0);
 
-	// Ciclo de dibujo (Draw loop)
+
+
+	//Ciclo de dibujo (Draw loop)
 	while (!glfwWindowShouldClose(window)) {
-		// Establecer región de dibujo
-		//glViewport(0, 0, 1500, 600);
+		//Establecer region de dibujo
 		glViewport(0, 0, 600, 600);
-		// Establecemos el color de borrado
-		glClearColor(1, 1, 1, 1);
-		// Borrar!
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//Establecemos el color de borrado
+		//Valores RGBA
+		glClearColor(1, 0.8, 0, 1);
+		//Borrar!
+		glClear(GL_COLOR_BUFFER_BIT |
+			GL_DEPTH_BUFFER_BIT);
 
-		// Actualizar valores y dibujar
+		//Actualizar valores y dibujar
 		dibujar();
 
 		glfwPollEvents();
 		glfwSwapBuffers(window);
 	}
-	// Después del ciclo de dibujo
-	// Eliminamos ventana y procesos de glfwr
+	//Despúes del ciclo de dibujo
+	//Eliminamos venta y procesos de glfw
 	glfwDestroyWindow(window);
 	glfwTerminate();
 }
