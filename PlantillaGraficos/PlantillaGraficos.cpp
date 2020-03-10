@@ -52,7 +52,17 @@ void inicializarTriangulo() {
 }
 
 void dibujar() {
+	//Elegir shader
+	shader->enlazar();
+	//Elegir el vertex array
+	glBindVertexArray(vertexArrayTrianguloID);
+	//Dibujar
+	glDrawArrays(GL_TRIANGLES, 0, triangulo.size());
 
+	//Soltar vertex array
+	glBindVertexArray(0);
+	//Desenlazar shader
+	shader->desenlazar();
 }
 
 int main()
