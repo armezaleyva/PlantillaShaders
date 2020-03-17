@@ -25,9 +25,25 @@ vector<Vertice> triangulo;
 GLuint vertexArrayTrianguloID;
 GLuint bufferTrianguloID;
 
-vector<Vertice> cuadrado;
+vector<Vertice> piso;
 GLuint vertexArrayCuadradoID;
 GLuint bufferCuadradoID;
+
+vector<Vertice> basePiramide;
+GLuint vertexArrayBasePiramideID;
+GLuint bufferBasePiramideID;
+
+vector<Vertice> topePiramide;
+GLuint vertexArrayTopePiramideID;
+GLuint bufferTopePiramideID;
+
+vector<Vertice> arboles;
+GLuint vertexArrayArbolesID;
+GLuint bufferArbolesID;
+
+vector<Vertice> nubes;
+GLuint vertexArrayNubesID;
+GLuint bufferNubesID;
 
 //Instancia del shader
 Shader* shader;
@@ -36,31 +52,85 @@ Shader* shader;
 GLuint posicionID;
 GLuint colorID;
 
-void inicializarCuadrado() {
+void inicializarPiso() {
 	Vertice v1 = {
-		vec3(-0.2f, 0.2f, 0.0f),
+		vec3(-1.0f, -1.0f, 0.0f),
 		vec4(0.1f, 0.8f, 0.2f, 1.0f)
 	};
 
 	Vertice v2 = {
-		vec3(0.2f, 0.2f, 0.0f),
+		vec3(-1.0f, -0.65f, 0.0f),
 		vec4(0.1f, 0.8f, 0.2f, 1.0f),
 	};
 
 	Vertice v3 = {
-		vec3(0.2f, -0.2f, 0.0f),
-		vec4(0.1f, 0.8f, 0.2f, 1.0f),
+		vec3(1.0f, -0.65f, 0.0f),
+		vec4(1.0f, 1.0f, 0.6f, 1.0f)
 	};
 
 	Vertice v4 = {
-		vec3(-0.2f, -0.2f, 0.0f),
-		vec4(0.1f, 0.8f, 0.2f, 1.0f),
+		vec3(1.0f, -1.0f, 0.0f),
+		vec4(1.0f, 1.0f, 0.6f, 1.0f)
 	};
 
-	cuadrado.push_back(v1);
-	cuadrado.push_back(v2);
-	cuadrado.push_back(v3);
-	cuadrado.push_back(v4);
+	piso.push_back(v1);
+	piso.push_back(v2);
+	piso.push_back(v3);
+	piso.push_back(v4);
+}
+
+void inicializarBasePiramide() {
+	Vertice v1 = {
+		vec3(-0.9f, -0.65f, 0.0f),
+		vec4(1.0f, 1.0f, 0.6f, 1.0f)
+	};
+
+	Vertice v2 = {
+		vec3(-0.3f, 0.2f, 0.0f),
+		vec4(1.0f, 1.0f, 0.6f, 1.0f)
+	};
+
+	Vertice v3 = {
+		vec3(0.3f, 0.2f, 0.0f),
+		vec4(1.0f, 1.0f, 0.6f, 1.0f)
+	};
+
+	Vertice v4 = {
+		vec3(0.9f, -0.65f, 0.0f),
+		vec4(1.0f, 1.0f, 0.6f, 1.0f)
+	};
+
+	basePiramide.push_back(v1);
+	basePiramide.push_back(v2);
+	basePiramide.push_back(v3);
+	basePiramide.push_back(v4);
+}
+
+void inicializarTopePiramide() {
+	Vertice v1 = {
+		vec3(-0.25f, 0.2f, 0.0f),
+		vec4(1.0f, 0.8f, 0.6f, 1.0f)
+	};
+
+	Vertice v2 = {
+		vec3(-0.25f, 0.4f, 0.0f),
+		vec4(1.0f, 0.8f, 0.6f, 1.0f)
+	};
+
+	Vertice v3 = {
+		vec3(0.25f, 0.4f, 0.0f),
+		vec4(1.0f, 0.8f, 0.6f, 1.0f)
+	};
+
+	Vertice v4 = {
+		vec3(0.25f, 0.2f, 0.0f),
+		vec4(1.0f, 0.8f, 0.6f, 1.0f)
+	};
+
+	topePiramide.push_back(v1);
+	topePiramide.push_back(v2);
+	topePiramide.push_back(v3);
+	topePiramide.push_back(v4);
 }
 
 void inicializarTriangulo() {
@@ -81,6 +151,60 @@ void inicializarTriangulo() {
 	triangulo.push_back(v3);
 }
 
+void inicializarArboles() {
+	Vertice v1 = {
+		vec3(-1.0f, -0.65f, 0.0f),
+		vec4(0.0f, 0.4f, 0.0f, 1.0f)
+	};
+
+	Vertice v2 = {
+		vec3(-1.0f, -0.4f, 0.0f),
+		vec4(0.0f, 0.4f, 0.0f, 1.0f)
+	};
+
+	Vertice v3 = {
+		vec3(1.0f, -0.4f, 0.0f),
+		vec4(0.0f, 0.4f, 0.0f, 1.0f)
+	};
+
+	Vertice v4 = {
+		vec3(1.0f, -0.65f, 0.0f),
+		vec4(0.0f, 0.4f, 0.0f, 1.0f)
+	};
+
+	piso.push_back(v1);
+	piso.push_back(v2);
+	piso.push_back(v3);
+	piso.push_back(v4);
+}
+
+void inicializarNubes() {
+	Vertice v1 = {
+		vec3(-1.0f, -0.35f, 0.0f),
+		vec4(1.0f, 1.0f, 1.0f, 1.0f)
+	};
+
+	Vertice v2 = {
+		vec3(-0.8f, 1.0f, 0.0f),
+		vec4(1.0f, 1.0f, 1.0f, 1.0f)
+	};
+
+	Vertice v3 = {
+		vec3(1.0f, 1.0f, 0.0f),
+		vec4(1.0f, 1.0f, 1.0f, 1.0f)
+	};
+
+	Vertice v4 = {
+		vec3(1.0f, -0.35f, 0.0f),
+		vec4(1.0f, 1.0f, 1.0f, 1.0f)
+	};
+
+	piso.push_back(v1);
+	piso.push_back(v2);
+	piso.push_back(v3);
+	piso.push_back(v4);
+}
+
 void dibujar() {
 	//Elegir shader
 	shader->enlazar();
@@ -91,8 +215,19 @@ void dibujar() {
 
 	// Proceso dibujo de cuadrado
 	glBindVertexArray(vertexArrayCuadradoID);
-	glDrawArrays(GL_QUADS, 0, cuadrado.size());
+	glDrawArrays(GL_QUADS, 0, piso.size());
 
+	glBindVertexArray(vertexArrayBasePiramideID);
+	glDrawArrays(GL_POLYGON, 0, basePiramide.size());
+
+	glBindVertexArray(vertexArrayTopePiramideID);
+	glDrawArrays(GL_QUADS, 0, topePiramide.size());
+
+	glBindVertexArray(vertexArrayArbolesID);
+	glDrawArrays(GL_QUADS, 0, arboles.size());
+
+	glBindVertexArray(vertexArrayNubesID);
+	glDrawArrays(GL_POLYGON, 0, nubes.size());
 	//Soltar vertex array
 	glBindVertexArray(0);
 	//Desenlazar shader
@@ -136,8 +271,12 @@ int main()
 		glGetString(GL_VERSION);
 	cout << "Version OpenGL: " << versionGL;
 
+	inicializarArboles();
 	inicializarTriangulo();
-	inicializarCuadrado();
+	inicializarPiso();
+	inicializarBasePiramide();
+	inicializarTopePiramide();
+	inicializarNubes();
 
 	const char* rutaVertexShader = "VertexShader.shader";
 	const char* rutaFragmentShader = "FragmentShader.shader";
@@ -173,8 +312,60 @@ int main()
 	glBindVertexArray(vertexArrayCuadradoID);
 	glGenBuffers(1, &bufferCuadradoID);
 	glBindBuffer(GL_ARRAY_BUFFER, bufferCuadradoID);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertice) * cuadrado.size(),
-		cuadrado.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertice) * piso.size(),
+		piso.data(), GL_STATIC_DRAW);
+	glEnableVertexAttribArray(posicionID);
+	glEnableVertexAttribArray(colorID);
+	glVertexAttribPointer(posicionID, 3, GL_FLOAT, GL_FALSE, sizeof(Vertice), 0);
+	glVertexAttribPointer(
+		colorID, 4, GL_FLOAT, GL_FALSE, sizeof(Vertice), (void*)sizeof(vec3)
+	);
+
+	glGenVertexArrays(1, &vertexArrayBasePiramideID);
+	glBindVertexArray(vertexArrayBasePiramideID);
+	glGenBuffers(1, &bufferBasePiramideID);
+	glBindBuffer(GL_ARRAY_BUFFER, bufferBasePiramideID);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertice) * basePiramide.size(),
+		basePiramide.data(), GL_STATIC_DRAW);
+	glEnableVertexAttribArray(posicionID);
+	glEnableVertexAttribArray(colorID);
+	glVertexAttribPointer(posicionID, 3, GL_FLOAT, GL_FALSE, sizeof(Vertice), 0);
+	glVertexAttribPointer(
+		colorID, 4, GL_FLOAT, GL_FALSE, sizeof(Vertice), (void*)sizeof(vec3)
+	);
+
+	glGenVertexArrays(1, &vertexArrayTopePiramideID);
+	glBindVertexArray(vertexArrayTopePiramideID);
+	glGenBuffers(1, &bufferTopePiramideID);
+	glBindBuffer(GL_ARRAY_BUFFER, bufferTopePiramideID);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertice) * topePiramide.size(),
+		topePiramide.data(), GL_STATIC_DRAW);
+	glEnableVertexAttribArray(posicionID);
+	glEnableVertexAttribArray(colorID);
+	glVertexAttribPointer(posicionID, 3, GL_FLOAT, GL_FALSE, sizeof(Vertice), 0);
+	glVertexAttribPointer(
+		colorID, 4, GL_FLOAT, GL_FALSE, sizeof(Vertice), (void*)sizeof(vec3)
+	);
+
+	glGenVertexArrays(1, &vertexArrayArbolesID);
+	glBindVertexArray(vertexArrayArbolesID);
+	glGenBuffers(1, &bufferArbolesID);
+	glBindBuffer(GL_ARRAY_BUFFER, bufferArbolesID);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertice) * arboles.size(),
+		topePiramide.data(), GL_STATIC_DRAW);
+	glEnableVertexAttribArray(posicionID);
+	glEnableVertexAttribArray(colorID);
+	glVertexAttribPointer(posicionID, 3, GL_FLOAT, GL_FALSE, sizeof(Vertice), 0);
+	glVertexAttribPointer(
+		colorID, 4, GL_FLOAT, GL_FALSE, sizeof(Vertice), (void*)sizeof(vec3)
+	);
+
+	glGenVertexArrays(1, &vertexArrayNubesID);
+	glBindVertexArray(vertexArrayNubesID);
+	glGenBuffers(1, &bufferNubesID);
+	glBindBuffer(GL_ARRAY_BUFFER, bufferNubesID);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertice) * nubes.size(),
+		topePiramide.data(), GL_STATIC_DRAW);
 	glEnableVertexAttribArray(posicionID);
 	glEnableVertexAttribArray(colorID);
 	glVertexAttribPointer(posicionID, 3, GL_FLOAT, GL_FALSE, sizeof(Vertice), 0);
@@ -188,7 +379,7 @@ int main()
 		glViewport(0, 0, 600, 600);
 		//Establecemos el color de borrado
 		//Valores RGBA
-		glClearColor(1, 0.8, 0, 1);
+		glClearColor(0.3, 0.65, 1.0, 1);
 		//Borrar!
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
